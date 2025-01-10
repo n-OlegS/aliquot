@@ -48,7 +48,11 @@ schema_statements = [
 ]
 
 # Remove the old database (if it exists)
-os.remove("database.db")
+try:
+    os.remove("database.db")
+except FileNotFoundError:
+    pass
+
 
 # Create a new connection and cursor
 conn = sqlite3.connect("database.db")
