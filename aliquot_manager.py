@@ -96,7 +96,7 @@ def computation_proc(db, out_queue, update_queue, task, params):
     elif task == "import":
         queue = True
 
-        if params[0] == "u":
+        if params[0] == "-u":
             queue = False
             params = params[1:]
 
@@ -181,7 +181,12 @@ def interpreter(db):
         elif command in ["save"]:
             save_all(db)
             print("INT: Saved!")
-
+        elif command in ['help']:
+            from texts import help_text
+            print(help_text)
+        elif command in ["docs"]:
+            from texts import docs
+            print(docs)
         else:
             if running_proc.is_alive():
                 print("INT: The computational process is already running. Quit it before launching another computation.")
@@ -198,7 +203,7 @@ def interpreter(db):
             elif command in ["import", "i"]:
                 code = "import"
 
-                if len(args) == 0 or (args[0] == "u" and len(args) == 1):
+                if len(args) == 0 or (args[0] == "-u" and len(args) == 1):
                     launch_flag = False
                     print("INT: Invalid args!")
                 else:
